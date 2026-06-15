@@ -12,7 +12,7 @@ const navigation = [
     { name: "Experiencia", href: "/#experiencia" },
     { name: "Habilidades", href: "/#tecnologias" },
     { name: "Proyectos", href: "/#proyectos" },
-    { name: "Personal", href: "/#personal" },
+    { name: "Catálogo", href: "/#personal" },
     { name: "Contacto", href: "/#contacto" },
 ];
 
@@ -86,7 +86,7 @@ export function Navbar() {
                             DR
                         </span>
                         <span className="text-xs font-extrabold tracking-tight text-foreground uppercase">
-                            David Rivera
+                            David Steven
                         </span>
                     </a>
 

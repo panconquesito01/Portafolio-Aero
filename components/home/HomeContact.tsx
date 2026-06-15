@@ -25,7 +25,7 @@ export function HomeContact() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                     {/* Left Column — Info */}
                     <motion.div
-                        initial={{ opacity: 0, x: -20 }}
+                        initial={{ opacity: 1, x: 0 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.5 }}
@@ -62,11 +62,11 @@ export function HomeContact() {
                                         icon: <Linkedin className="w-5 h-5 text-blue-600" />,
                                         label: "LinkedIn",
                                         text: "linkedin.com/in/davidrivera",
-                                        href: "https://linkedin.com",
+                                        href: "https://www.linkedin.com/in/david-steven-rivera-alfonso-0b55b52b3/",   
                                     },
                                 ].map((item, i) => (
-                                    <div key={i} className="flex items-center gap-4 p-3 rounded-xl bg-white/10 dark:bg-white/5 border border-white/5 shadow-[0_1px_4px_rgba(0,0,0,0.02)] hover:scale-[1.01] transition-transform duration-200">
-                                        <div className="w-10 h-10 rounded-lg bg-white/30 dark:bg-slate-900/50 flex items-center justify-center border border-white/20 shadow-sm shrink-0">
+                                    <div key={i} className="crystal-cell flex items-center gap-4 p-3 rounded-xl hover:scale-[1.01] transition-transform duration-200">
+                                        <div className="crystal-cell w-10 h-10 rounded-lg flex items-center justify-center shadow-sm shrink-0">
                                             {item.icon}
                                         </div>
                                         <div className="min-w-0">
@@ -96,7 +96,7 @@ export function HomeContact() {
 
                     {/* Right Column — Form */}
                     <motion.div
-                        initial={{ opacity: 0, x: 20 }}
+                        initial={{ opacity: 1, x: 0 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.5 }}

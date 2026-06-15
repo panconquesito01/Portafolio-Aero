@@ -1,19 +1,14 @@
 "use client";
 
-import * as React from "react";
 import { Container } from "@/components/ui/container";
-import { GlossyButton } from "@/components/ui/GlossyButton";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Code, Database, Server, Layers, User, Mail } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight, Code, Server, Layers, User, Mail } from "lucide-react";
 
 /* ─── Mini Dashboard Mockup (CSS-only) ─── */
 function DashboardMockup() {
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 20, rotateY: -3 }}
-            animate={{ opacity: 1, y: 0, rotateY: 0 }}
-            transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
-            className="relative w-[420px] h-[280px] rounded-2xl bg-white/80 dark:bg-slate-900/80 overflow-hidden shadow-2xl border border-white/45 dark:border-slate-800/80 backdrop-blur-md"
+        <div
+            className="crystal-cell animate-aero-panel-float relative w-[420px] h-[280px] rounded-2xl overflow-hidden shadow-2xl"
         >
             {/* Title bar */}
             <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-200/50 dark:border-slate-800/85">
@@ -31,7 +26,7 @@ function DashboardMockup() {
 
             <div className="flex h-[calc(100%-36px)]">
                 {/* Sidebar */}
-                <div className="w-[100px] border-r border-slate-200/50 dark:border-slate-800/85 p-3 flex flex-col gap-2 bg-slate-50/35 dark:bg-slate-950/20">
+                <div className="w-[100px] border-r border-white/30 dark:border-cyan-100/10 p-3 flex flex-col gap-2 bg-white/10 dark:bg-slate-950/10">
                     {["Inicio", "Analítica", "Usuarios", "Pedidos", "Productos", "Reportes", "Ajustes"].map(
                         (item, i) => (
                             <div
@@ -59,7 +54,7 @@ function DashboardMockup() {
                         ].map((stat) => (
                             <div
                                 key={stat.label}
-                                className="bg-slate-50/75 dark:bg-slate-800/60 rounded-lg p-2 border border-slate-200/50 dark:border-slate-700/50"
+                                className="crystal-cell rounded-lg p-2"
                             >
                                 <div className="text-[7px] text-muted-foreground/50 truncate">
                                     {stat.label}
@@ -76,7 +71,7 @@ function DashboardMockup() {
 
                     {/* Chart area */}
                     <div className="flex gap-2 items-stretch flex-1">
-                        <div className="flex-1 bg-slate-50/75 dark:bg-slate-800/60 rounded-lg p-2 border border-slate-200/50 dark:border-slate-700/50 flex flex-col justify-between">
+                        <div className="crystal-cell flex-1 rounded-lg p-2 flex flex-col justify-between">
                             <div className="text-[7px] font-semibold text-foreground/50">
                                 Resumen de Ingresos
                             </div>
@@ -120,7 +115,7 @@ function DashboardMockup() {
                         </div>
 
                         {/* Side Donut Chart */}
-                        <div className="w-[85px] bg-slate-50/75 dark:bg-slate-800/60 rounded-lg p-2 border border-slate-200/50 dark:border-slate-700/50 flex flex-col justify-between">
+                        <div className="crystal-cell w-[85px] rounded-lg p-2 flex flex-col justify-between">
                             <div className="text-[7px] font-semibold text-foreground/50">
                                 Productos Top
                             </div>
@@ -143,7 +138,7 @@ function DashboardMockup() {
                     </div>
                 </div>
             </div>
-        </motion.div>
+        </div>
     );
 }
 
@@ -163,11 +158,8 @@ const codeHTML = `<div style="display:flex">
 
 function CodeSnippetMockup() {
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.65, duration: 0.7, ease: "easeOut" }}
-            className="absolute -bottom-6 -left-6 w-[340px] rounded-xl overflow-hidden shadow-2xl border border-white/10 dark:border-white/5 z-20"
+        <div
+            className="animate-aero-panel-float-delayed absolute -bottom-6 -left-6 w-[340px] rounded-xl overflow-hidden shadow-2xl border border-white/10 dark:border-white/5 z-20"
         >
             {/* Title bar */}
             <div className="flex items-center gap-2 px-3.5 py-2 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/50">
@@ -186,55 +178,14 @@ function CodeSnippetMockup() {
                 className="bg-slate-950/95 backdrop-blur-md p-3.5 font-mono text-[10px] leading-relaxed text-slate-300 border-t border-slate-900"
                 dangerouslySetInnerHTML={{ __html: codeHTML }}
             />
-        </motion.div>
-    );
-}
-
-function GlassBubbles() {
-    const { scrollY } = useScroll();
-    const y1 = useTransform(scrollY, [0, 800], [0, -180]);
-    const y2 = useTransform(scrollY, [0, 800], [0, -90]);
-    const y3 = useTransform(scrollY, [0, 800], [0, -130]);
-
-    return (
-        <>
-            {/* Top-Right Bubble */}
-            <motion.div
-                style={{ y: y1 }}
-                animate={{ x: [-6, 6, -6] }}
-                transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-                className="aero-bubble absolute -top-16 -right-16 w-28 h-28 z-20 hidden lg:block"
-            />
-            {/* Bottom-Right Bubble */}
-            <motion.div
-                style={{ y: y2 }}
-                animate={{ x: [4, -4, 4] }}
-                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="aero-bubble absolute -bottom-16 right-28 w-16 h-16 z-20 hidden lg:block"
-            />
-            {/* Left Mid Bubble */}
-            <motion.div
-                style={{ y: y3 }}
-                animate={{ x: [3, -3, 3] }}
-                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-                className="aero-bubble absolute top-1/4 -left-20 w-24 h-24 z-20 hidden lg:block"
-            />
-        </>
+        </div>
     );
 }
 
 /* ─── Hero Section ─── */
 export function HeroSection() {
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.1, delayChildren: 0.1 },
-        },
-    };
-
     const itemVariants = {
-        hidden: { opacity: 0, y: 25 },
+        hidden: { opacity: 1, y: 0 },
         visible: {
             opacity: 1,
             y: 0,
@@ -245,42 +196,61 @@ export function HeroSection() {
     return (
         <section
             id="inicio"
-            className="relative min-h-[90vh] flex items-center pt-28 pb-12 overflow-visible"
+            className="relative min-h-[88vh] flex items-center pt-28 pb-10 overflow-visible"
         >
             <Container className="relative z-10 overflow-visible">
                 {/* Main Glass Panel wrapping the entire Hero area */}
-                <div className="glass-panel glass-panel-highlight rounded-3xl p-8 lg:p-12 shadow-2xl relative w-full overflow-visible border border-white/40 dark:border-white/10 mt-4">
+                <div className="glass-panel glass-panel-highlight rounded-2xl p-6 sm:p-8 lg:p-11 shadow-2xl relative w-full overflow-visible border border-white/70 dark:border-cyan-100/10 mt-4">
                     {/* Visual Glare diagonal overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/15 pointer-events-none rounded-3xl -z-10" />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/15 to-white/25 dark:via-cyan-100/5 dark:to-cyan-100/10 pointer-events-none rounded-2xl -z-10" />
 
                     <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center overflow-visible">
                         {/* Left — Text */}
                         <motion.div
-                            variants={containerVariants}
-                            initial="hidden"
+                            initial={false}
                             animate="visible"
                             className="flex flex-col"
                         >
+                            <motion.div
+                                variants={itemVariants}
+                                className="crystal-cell mb-4 inline-flex w-fit items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.18em] text-sky-800 dark:text-cyan-100"
+                            >
+                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.8)]" />
+                                Full Stack / ERP / SQL Server
+                            </motion.div>
                             <motion.h1
                                 variants={itemVariants}
-                                className="text-5xl sm:text-6xl lg:text-7xl font-extrabold font-heading tracking-tight leading-[1.05]"
+                                className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-heading tracking-tight leading-[1.04]"
                             >
-                                <span className="text-foreground">David Rivera</span>
+                                <span className="text-foreground">David Steven Rivera Alfonso</span>
                                 <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-sky-400 dark:from-sky-400 dark:to-blue-500">
-                                    Desarrollador Full Stack
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-700 via-cyan-600 to-emerald-600 dark:from-cyan-200 dark:via-sky-300 dark:to-emerald-200">
+                                    Ingeniero de Sistemas / Full Stack Developer
                                 </span>
                             </motion.h1>
 
                             <motion.p
                                 variants={itemVariants}
-                                className="mt-6 max-w-lg text-base sm:text-lg text-foreground/75 dark:text-foreground/60 leading-relaxed"
+                                className="mt-6 max-w-2xl text-base sm:text-lg text-foreground/80 dark:text-foreground/75 leading-relaxed"
                             >
-                                Construyo aplicaciones web y sistemas de extremo a extremo
-                                <br className="hidden sm:block" /> que son altamente confiables, escalables y orientados a una gran experiencia de usuario.
-                                <br className="hidden sm:block" />
-                                Código limpio. Arquitectura sólida. Resultados reales.
+                                Construyo software empresarial, módulos ERP, interfaces web y
+                                automatizaciones con foco en claridad técnica, datos confiables y
+                                resultados que se sostienen en producción.
                             </motion.p>
+
+                            <motion.div
+                                variants={itemVariants}
+                                className="mt-6 grid max-w-2xl grid-cols-1 gap-3 text-xs font-semibold text-foreground/75 sm:grid-cols-3 dark:text-foreground/70"
+                            >
+                                {["Backend .NET y SQL Server", "Frontend Next.js y React", "Reportes y procesos ERP"].map((item) => (
+                                    <div
+                                        key={item}
+                                        className="crystal-cell rounded-xl px-3 py-2"
+                                    >
+                                        {item}
+                                    </div>
+                                ))}
+                            </motion.div>
 
                             {/* CTA Buttons */}
                             <motion.div
@@ -288,15 +258,16 @@ export function HeroSection() {
                                 className="mt-8 flex flex-wrap gap-4"
                             >
                                 <a
-                                    href="#panels"
-                                    className="inline-flex items-center justify-center font-bold px-6 h-12 text-sm rounded-full bg-gradient-to-b from-sky-400 to-blue-500 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_4px_12px_rgba(2,132,199,0.35)] hover:scale-[1.02] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_6px_16px_rgba(2,132,199,0.45)] transition-all duration-200 gap-2 border border-blue-500/20"
+                                    href="#proyectos"
+                                    className="inline-flex items-center justify-center font-bold px-6 h-12 text-sm rounded-xl bg-gradient-to-b from-sky-500 to-blue-600 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_10px_24px_rgba(2,132,199,0.3)] hover:translate-y-[-1px] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_14px_30px_rgba(2,132,199,0.38)] transition-all duration-200 gap-2 border border-blue-400/40"
                                 >
                                     <User className="w-4 h-4" />
                                     Ver Proyectos
+                                    <ArrowRight className="w-4 h-4" />
                                 </a>
                                 <a
                                     href="/contact"
-                                    className="inline-flex items-center justify-center font-bold px-6 h-12 text-sm rounded-full bg-white/20 hover:bg-white/30 dark:bg-white/5 dark:hover:bg-white/10 text-foreground border border-white/40 dark:border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_4px_12px_rgba(0,0,0,0.05)] hover:scale-[1.02] transition-all duration-200 gap-2"
+                                    className="inline-flex items-center justify-center font-bold px-6 h-12 text-sm rounded-xl bg-white/50 hover:bg-white/70 dark:bg-white/10 dark:hover:bg-white/15 text-foreground border border-white/60 dark:border-cyan-100/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_8px_18px_rgba(0,0,0,0.08)] hover:translate-y-[-1px] transition-all duration-200 gap-2"
                                 >
                                     <Mail className="w-4 h-4" />
                                     Contactar
@@ -316,7 +287,7 @@ export function HeroSection() {
                                 ].map((tech) => (
                                     <div
                                         key={tech.label}
-                                        className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-semibold bg-white/25 dark:bg-white/5 border border-white/30 dark:border-white/10 shadow-[0_1px_4px_rgba(0,0,0,0.04)] hover:scale-105 hover:bg-white/40 dark:hover:bg-white/10 transition-all duration-200 cursor-default"
+                                        className="crystal-cell inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-semibold hover:scale-105 transition-all duration-200 cursor-default"
                                     >
                                         {tech.icon}
                                         <span>{tech.label}</span>
@@ -328,7 +299,8 @@ export function HeroSection() {
                         {/* Right — Visual mockups */}
                         <div className="relative hidden lg:block overflow-visible">
                             <div className="relative ml-8 overflow-visible">
-                                <GlassBubbles />
+                                <span className="aero-bubble absolute -right-12 -top-16 z-20 h-24 w-24 animate-float-gentle" />
+                                <span className="aero-bubble absolute -bottom-14 right-24 z-20 h-14 w-14 animate-float-delayed" />
                                 <DashboardMockup />
                                 <CodeSnippetMockup />
                             </div>

@@ -17,7 +17,7 @@ export default function ContactPage() {
         {
             icon: <MapPin size={20} className="text-aero-green" />,
             label: "Ubicación",
-            value: "San Diego, California / Remoto",
+            value: "Colombia / Remoto",
             href: "#",
         },
     ];
@@ -57,8 +57,8 @@ export default function ContactPage() {
                             Contacto
                         </h1>
                         <p className="text-lg text-foreground/60 leading-relaxed mb-8">
-                            ¿Tienes un proyecto interesante o alguna oportunidad de colaboración?
-                            Hablemos y hagamos realidad tus ideas.
+                            ¿Necesitas construir, mejorar o mantener una solución web,
+                            ERP o automatización empresarial? Hablemos con contexto técnico.
                         </p>
 
                         <div className="space-y-3 mb-8">
@@ -93,7 +93,7 @@ export default function ContactPage() {
                                     href={social.href}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/10 text-foreground/50 hover:text-primary hover:border-primary/30 transition-all"
+                                    className="crystal-cell flex h-10 w-10 items-center justify-center rounded-xl text-foreground/60 hover:text-primary transition-all"
                                     aria-label={social.label}
                                 >
                                     {social.icon}
@@ -124,7 +124,7 @@ export default function ContactPage() {
                                         </label>
                                         <input
                                             type="text"
-                                            className="w-full rounded-xl bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/10 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all"
+                                            className="crystal-field w-full rounded-xl px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all"
                                             placeholder="Tu nombre"
                                         />
                                     </div>
@@ -134,7 +134,7 @@ export default function ContactPage() {
                                         </label>
                                         <input
                                             type="email"
-                                            className="w-full rounded-xl bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/10 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all"
+                                            className="crystal-field w-full rounded-xl px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all"
                                             placeholder="tu@correo.com"
                                         />
                                     </div>
@@ -145,7 +145,7 @@ export default function ContactPage() {
                                     </label>
                                     <input
                                         type="text"
-                                        className="w-full rounded-xl bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/10 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all"
+                                        className="crystal-field w-full rounded-xl px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all"
                                         placeholder="¿De qué trata el proyecto?"
                                     />
                                 </div>
@@ -155,7 +155,7 @@ export default function ContactPage() {
                                     </label>
                                     <textarea
                                         rows={5}
-                                        className="w-full rounded-xl bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/10 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all resize-none"
+                                        className="crystal-field w-full rounded-xl px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all resize-none"
                                         placeholder="Cuéntame más sobre tu proyecto o idea..."
                                     />
                                 </div>

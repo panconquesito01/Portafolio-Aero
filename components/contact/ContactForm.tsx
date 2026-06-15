@@ -80,7 +80,7 @@ export function ContactForm() {
                                 value={formData.name}
                                 onChange={handleChange}
                                 disabled={status === "submitting"}
-                                className="flex h-11 w-full rounded-xl border border-border/50 bg-background/50 px-4 py-3 text-sm transition-all placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/80 disabled:cursor-not-allowed disabled:opacity-50"
+                                className="crystal-field flex h-11 w-full rounded-xl px-4 py-3 text-sm transition-all placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/40 disabled:cursor-not-allowed disabled:opacity-50"
                                 placeholder="Tu nombre"
                             />
                         </div>
@@ -97,7 +97,7 @@ export function ContactForm() {
                                 value={formData.email}
                                 onChange={handleChange}
                                 disabled={status === "submitting"}
-                                className="flex h-11 w-full rounded-xl border border-border/50 bg-background/50 px-4 py-3 text-sm transition-all placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/80 disabled:cursor-not-allowed disabled:opacity-50"
+                                className="crystal-field flex h-11 w-full rounded-xl px-4 py-3 text-sm transition-all placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/40 disabled:cursor-not-allowed disabled:opacity-50"
                                 placeholder="tu@email.com"
                             />
                         </div>
@@ -113,7 +113,7 @@ export function ContactForm() {
                                 value={formData.message}
                                 onChange={handleChange}
                                 disabled={status === "submitting"}
-                                className="flex min-h-[140px] w-full rounded-xl border border-border/50 bg-background/50 px-4 py-3 text-sm transition-all placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/80 disabled:cursor-not-allowed disabled:opacity-50 resize-y"
+                                className="crystal-field flex min-h-[140px] w-full rounded-xl px-4 py-3 text-sm transition-all placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/40 disabled:cursor-not-allowed disabled:opacity-50 resize-y"
                                 placeholder="¿De qué trata tu proyecto?"
                             />
                         </div>

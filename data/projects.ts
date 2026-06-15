@@ -5,68 +5,118 @@ export interface Project {
     stack: string[];
     visualType: "enterprise" | "open-source" | "sandbox" | "game" | "roblox" | "blog";
     image: string;
+    impact: string;
+    features: string[];
     githubUrl?: string;
 }
 
 export const projects: Project[] = [
     {
         id: "aurosoft-erp",
-        title: "Aurosoft ERP (Sistema Corporativo)",
+        title: "ERP Aurosoft",
         description:
-            "Sistema ERP multi-inquilino de gran escala para empresas colombianas. Desarrollado con ASP.NET Core 10, Entity Framework Core 10 (SQL Server), integraciones REST API con Conexus (facturación electrónica de la DIAN), WhatsApp Graph API y generación de reportes FastReport.",
-        stack: ["C#", "ASP.NET Core 10", "SQL Server", "PWA"],
+            "Sistema empresarial para operación administrativa, comercial y contable. Participación en módulos reales de negocio, mantenimiento evolutivo, reportes y soporte técnico sobre flujos productivos.",
+        stack: ["C#", ".NET", "ASP.NET MVC", "SQL Server", "Entity Framework"],
         visualType: "enterprise",
         image: "/projects/erp.png",
+        impact:
+            "Centraliza procesos críticos y reduce fricción operativa entre áreas comerciales, inventario y administración.",
+        features: [
+            "Módulos de inventario, facturación, cartera y contabilidad.",
+            "Corrección de errores productivos con análisis de causa raíz.",
+            "Consultas SQL y validaciones de reglas de negocio.",
+            "Integración con reportes y documentos empresariales.",
+        ],
         githubUrl: "https://github.com/panconquesito01",
     },
     {
-        id: "awesome-copilot",
-        title: "Awesome GitHub Copilot",
+        id: "enterprise-modules",
+        title: "Módulos Empresariales",
         description:
-            "Colaboración y desarrollo de un repositorio de código abierto con una colección de agentes personalizados, instrucciones de formato, MCP servers, flujos de trabajo de automatización de CI/CD e integraciones avanzadas para la comunidad de desarrollo en GitHub Copilot.",
-        stack: ["Node.js", "AI Tooling", "GitHub Actions"],
-        visualType: "open-source",
+            "Diseño y evolución de pantallas, servicios y flujos internos para operaciones de negocio: terceros, productos, movimientos, comprobantes y procesos administrativos.",
+        stack: ["C#", ".NET", "Telerik", "JavaScript", "SQL Server"],
+        visualType: "enterprise",
         image: "/projects/analytics.png",
-        githubUrl: "https://github.com/panconquesito01/awesome-copilot",
-    },
-    {
-        id: "voxelcraft",
-        title: "VoxelCraft (Motor Voxel 3D)",
-        description:
-            "Juego sandbox voxel 3D en navegador construido desde cero. Generación procedural determinista por semilla, biomas dinámicos, ciclo día/noche, IA de mobs con comportamientos dinámicos y un motor de chunks optimizado en GPU con guardado por diferencias en localStorage.",
-        stack: ["TypeScript", "Three.js", "Vite"],
-        visualType: "sandbox",
-        image: "/projects/api.png",
+        impact:
+            "Convierte requerimientos operativos en módulos claros, mantenibles y alineados con usuarios reales.",
+        features: [
+            "Análisis de requerimientos con impacto sobre datos existentes.",
+            "Formularios empresariales con validaciones y estados claros.",
+            "Mantenimiento sobre componentes heredados sin romper compatibilidad.",
+            "Entrega incremental con control de versiones.",
+        ],
         githubUrl: "https://github.com/panconquesito01",
     },
     {
-        id: "retro-birthday-slots",
-        title: "Retro Birthday Slots (Cumple-Poke)",
+        id: "sql-automation",
+        title: "Automatizaciones SQL",
         description:
-            "Videojuego web estilo RPG retro handheld de tragamonedas de cumpleaños. Incluye máquina de estados de juego con persistencia de sesión local, generación de perfiles estacionales y un sintetizador de audio nativo mediante Web Audio API.",
-        stack: ["Next.js", "React", "TypeScript", "Web Audio API"],
-        visualType: "game",
+            "Consultas, vistas, procedimientos y procesos de apoyo para depurar datos, automatizar cálculos y preparar información confiable para operación y reportes.",
+        stack: ["SQL Server", "T-SQL", "Stored Procedures", "Jobs SQL"],
+        visualType: "enterprise",
+        image: "/projects/api.png",
+        impact:
+            "Disminuye trabajo manual, mejora consistencia de información y acelera cierres o revisiones operativas.",
+        features: [
+            "Consultas para auditoría de movimientos y saldos.",
+            "Procedimientos parametrizables para procesos recurrentes.",
+            "Optimización de filtros, joins y consultas costosas.",
+            "Preparación de datasets para reportes financieros.",
+        ],
+        githubUrl: "https://github.com/panconquesito01",
+    },
+    {
+        id: "financial-reports",
+        title: "Reportes Financieros y Facturación",
+        description:
+            "Generación de reportes, documentos y salidas empresariales para facturación, contabilidad, cartera e inventarios, con foco en legibilidad y precisión de datos.",
+        stack: ["FastReport", "Telerik", "NPOI", "SQL Server", ".NET"],
+        visualType: "enterprise",
         image: "/projects/client.png",
+        impact:
+            "Entrega información confiable para decisiones, auditoría y comunicación con clientes o áreas internas.",
+        features: [
+            "Diseño de reportes con agrupaciones, totales y filtros.",
+            "Exportación y manipulación de documentos con NPOI.",
+            "Cruce de información entre tablas operativas y contables.",
+            "Validación visual y técnica de resultados.",
+        ],
         githubUrl: "https://github.com/panconquesito01",
     },
     {
-        id: "lavagame-roblox",
-        title: "LavaGame (Roblox & Rojo)",
+        id: "portfolio-web",
+        title: "Portafolio Web Profesional",
         description:
-            "Proyecto de Roblox Studio integrado mediante el framework Rojo y Luau. Implementa lógica de optimización de materiales en tiempo real y sistemas de iluminación dinámica en Roblox sin modificar recursos base del servidor.",
-        stack: ["Rojo", "Luau", "Roblox Studio"],
-        visualType: "roblox",
-        image: "/projects/api.png",
+            "Sitio personal en Next.js con estética aero/tech, secciones profesionales, catálogo personal interactivo, animaciones fluidas y estructura preparada para crecer.",
+        stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+        visualType: "open-source",
+        image: "/projects/client.png",
+        impact:
+            "Comunica perfil técnico, criterio de producto y dominio frontend con una experiencia visual diferenciada.",
+        features: [
+            "Home resumido con navegación a secciones y páginas completas.",
+            "Catálogo personal con vistas fluidas y modal detallado.",
+            "Glass UI optimizado para contraste en modo claro y oscuro.",
+            "Componentes tipados y datos desacoplados.",
+        ],
         githubUrl: "https://github.com/panconquesito01",
     },
     {
-        id: "santa-marta-blog",
-        title: "Santa Marta Travel Blog",
+        id: "web-experiments",
+        title: "Experimentos Web Interactivos",
         description:
-            "Blog de viajes interactivo del Caribe colombiano. Diseñado con HTML5 semántico, layouts Bento Grid responsivos, modales y animaciones fluidas al hacer scroll con optimización de carga y accesibilidad.",
-        stack: ["HTML5", "CSS3", "JavaScript"],
+            "Prototipos y experiencias visuales para practicar motion, composición, performance de UI, efectos de profundidad y microinteracciones en navegador.",
+        stack: ["TypeScript", "React", "Three.js", "HTML5", "CSS3"],
         visualType: "blog",
-        image: "/projects/client.png",
+        image: "/projects/analytics.png",
+        impact:
+            "Permite explorar ideas visuales y técnicas que luego se aplican con más criterio en productos reales.",
+        features: [
+            "Animaciones de scroll y transiciones con intención.",
+            "Layouts responsivos para contenido visual.",
+            "Pruebas de rendimiento y composición CSS.",
+            "Componentes reutilizables cuando reducen complejidad.",
+        ],
         githubUrl: "https://github.com/panconquesito01",
     },
 ];

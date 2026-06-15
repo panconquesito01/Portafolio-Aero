@@ -2,182 +2,364 @@
 
 import * as React from "react";
 import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
+import { Calendar, Clock3, Disc, Film, ListMusic, Sparkles, Star, Tv, Users, X } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { GlassPanel } from "@/components/ui/GlassPanel";
-import { motion, AnimatePresence } from "framer-motion";
-import { Disc, Film, Tv, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+    personalCatalogs,
+    type AlbumItem,
+    type PersonalCatalogType,
+    type PersonalItem,
+    type ScreenItem,
+} from "@/data/personalCatalog";
 
-interface PersonalItem {
-    title: string;
-    subtitle: string;
-    image: string;
-    type: "music" | "movie" | "series";
+const catalogIcons: Record<PersonalCatalogType, React.ElementType> = {
+    music: Disc,
+    movie: Film,
+    series: Tv,
+};
+
+function isAlbum(item: PersonalItem): item is AlbumItem {
+    return item.type === "music";
 }
 
-const albums: PersonalItem[] = [
-    { title: "Hybrid Theory", subtitle: "Linkin Park", image: "/media/albums/Hybrid Theory - Linkin Park.jfif", type: "music" },
-    { title: "Paranoid", subtitle: "Black Sabbath", image: "/media/albums/Paranoid - Black Sabbath.jfif", type: "music" },
-    { title: "Black Sabbath", subtitle: "Black Sabbath", image: "/media/albums/Black Sabbath - Black Sabbath.jfif", type: "music" },
-    { title: "MM..FOOD", subtitle: "MF DOOM", image: "/media/albums/MM..FOOD - MF DOOM.jfif", type: "music" },
-    { title: "The Wall", subtitle: "Pink Floyd", image: "/media/albums/The Wall - Pink Floyd.jfif", type: "music" },
-    { title: "Around The Fur", subtitle: "Deftones", image: "/media/albums/Around The Fur - Deftones.jfif", type: "music" },
-    { title: "The Doors", subtitle: "The Doors", image: "/media/albums/The Doors - The Doors.jfif", type: "music" },
-    { title: "Californication", subtitle: "Red Hot Chili Peppers", image: "/media/albums/Californication - Red Hot Chili Peppers.jfif", type: "music" },
-    { title: "Discovery", subtitle: "Daft Punk", image: "/media/albums/Discovery - Daft Punk.jfif", type: "music" },
-    { title: "OK Computer", subtitle: "Radiohead", image: "/media/albums/OK Computer - Radiohead.jfif", type: "music" },
-    { title: "Korn", subtitle: "Korn", image: "/media/albums/Korn - Korn.jfif", type: "music" },
-    { title: "Follow The Leader", subtitle: "Korn", image: "/media/albums/Follow The Leader - Korn.jfif", type: "music" },
-];
+function isScreenItem(item: PersonalItem): item is ScreenItem {
+    return item.type === "movie" || item.type === "series";
+}
 
-const movies: PersonalItem[] = [
-    { title: "Fantastic Mr. Fox", subtitle: "Wes Anderson", image: "/media/peliculas/Fantastic Mr. Fox.jpg", type: "movie" },
-    { title: "Hoppers: Operación Castor", subtitle: "Disney / Pixar", image: "/media/peliculas/Hoppers - Operacion Castor.jpg", type: "movie" },
-    { title: "Toy Story", subtitle: "Pixar (1995)", image: "/media/peliculas/Toy Story.jpg", type: "movie" },
-    { title: "Kill Bill Vol 1", subtitle: "Quentin Tarantino", image: "/media/peliculas/Kill Bill Vol 1.jpg", type: "movie" },
-    { title: "Kill Bill Vol 2", subtitle: "Quentin Tarantino", image: "/media/peliculas/Kill Bill Vol 2.jpg", type: "movie" },
-    { title: "Pulp Fiction", subtitle: "Quentin Tarantino", image: "/media/peliculas/Pulp Fiction.jpg", type: "movie" },
-    { title: "Lluvia de Hamburguesas", subtitle: "Sony Pictures", image: "/media/peliculas/Lluvia de Hamburguesas.jpg", type: "movie" },
-    { title: "Scary Movie", subtitle: "Keenen Ivory Wayans", image: "/media/peliculas/Scary Movie.webp", type: "movie" },
-    { title: "The Mitchells vs The Machines", subtitle: "Sony Pictures", image: "/media/peliculas/The Mitchells vs The Machines.jpg", type: "movie" },
-    { title: "Spider-Man 2", subtitle: "Sam Raimi", image: "/media/peliculas/Spider-Man 2.webp", type: "movie" },
-];
+function PersonalItemModal({
+    item,
+    onClose,
+}: {
+    item: PersonalItem;
+    onClose: () => void;
+}) {
+    React.useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === "Escape") onClose();
+        };
 
-const series: PersonalItem[] = [
-    { title: "Dr. HOUSE", subtitle: "David Shore", image: "/media/series/Dr. HOUSE.webp", type: "series" },
-    { title: "One Piece", subtitle: "Eiichiro Oda", image: "/media/series/One Piece.jpeg", type: "series" },
-    { title: "Los Simpson", subtitle: "Matt Groening", image: "/media/series/Los Simpson.webp", type: "series" },
-    { title: "Futurama", subtitle: "Matt Groening", image: "/media/series/Futurama.jpg", type: "series" },
-    { title: "Naruto", subtitle: "Masashi Kishimoto", image: "/media/series/Naruto.jpg", type: "series" },
-    { title: "Rick and Morty", subtitle: "Justin Roiland & Dan Harmon", image: "/media/series/Rick and Morty.jpg", type: "series" },
-    { title: "Breaking Bad", subtitle: "Vince Gilligan", image: "/media/series/Breaking Bad.jpg", type: "series" },
-    { title: "The X Files", subtitle: "Chris Carter", image: "/media/series/The X Files.jpg", type: "series" },
-];
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [onClose]);
 
-const tabs = [
-    { id: "music", name: "Álbumes", icon: Disc, data: albums, gridClass: "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6", aspect: "aspect-square" },
-    { id: "movie", name: "Películas", icon: Film, data: movies, gridClass: "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5", aspect: "aspect-[2/3]" },
-    { id: "series", name: "Series", icon: Tv, data: series, gridClass: "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4", aspect: "aspect-[2/3]" },
-];
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.button
+                type="button"
+                aria-label="Cerrar detalle"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={onClose}
+                className="absolute inset-0 bg-slate-950/60 backdrop-blur-md"
+            />
+
+            <motion.article
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby={`personal-modal-${item.id}`}
+                initial={{ opacity: 0, scale: 0.96, y: 18 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.96, y: 18 }}
+                transition={{ type: "spring", duration: 0.5 }}
+                className="crystal-modal relative z-10 grid max-h-[88vh] w-full max-w-5xl overflow-hidden rounded-2xl text-foreground shadow-2xl md:grid-cols-[280px_1fr]"
+            >
+                <div className="crystal-media relative min-h-[260px] overflow-hidden border-0 md:min-h-full">
+                    <Image src={item.image} alt={item.title} fill className="object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/15 to-transparent" />
+                    <div className="absolute bottom-5 left-5 right-5 text-white">
+                        <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-cyan-100/80">
+                            {isAlbum(item) ? "Álbum" : item.type === "movie" ? "Película" : "Serie"}
+                        </p>
+                        <h3 className="mt-2 font-heading text-2xl font-extrabold leading-tight">
+                            {item.title}
+                        </h3>
+                        <p className="mt-1 text-sm font-semibold text-white/80">{item.subtitle}</p>
+                    </div>
+                </div>
+
+                <div className="flex max-h-[88vh] flex-col overflow-hidden">
+                    <div className="flex items-start justify-between gap-4 border-b border-slate-200/70 p-5 dark:border-white/10 md:p-6">
+                        <div>
+                            <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-sky-700 dark:text-cyan-200">
+                                Ficha básica
+                            </p>
+                            <h2 id={`personal-modal-${item.id}`} className="mt-1 font-heading text-2xl font-extrabold">
+                                {item.title}
+                            </h2>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={onClose}
+                            aria-label="Cerrar detalle"
+                            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-700 transition-colors hover:bg-white dark:border-white/10 dark:bg-white/10 dark:text-white"
+                        >
+                            <X className="h-4 w-4" />
+                        </button>
+                    </div>
+
+                    <div className="flex-1 space-y-6 overflow-y-auto p-5 md:p-6">
+                        <p className="text-sm leading-relaxed text-muted-foreground">
+                            {item.summary}
+                        </p>
+
+                        <div className="grid gap-3 sm:grid-cols-2">
+                            <div className="crystal-cell rounded-xl p-3">
+                                <div className="flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[0.16em] text-muted-foreground">
+                                    <Calendar className="h-3.5 w-3.5" />
+                                    Año
+                                </div>
+                                <p className="mt-1 text-sm font-bold">{item.year}</p>
+                            </div>
+
+                            {isAlbum(item) ? (
+                                <div className="crystal-cell rounded-xl p-3">
+                                    <div className="flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[0.16em] text-muted-foreground">
+                                        <Clock3 className="h-3.5 w-3.5" />
+                                        Duración
+                                    </div>
+                                    <p className="mt-1 text-sm font-bold">{item.albumLength}</p>
+                                </div>
+                            ) : (
+                                <div className="crystal-cell rounded-xl p-3">
+                                    <div className="flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[0.16em] text-muted-foreground">
+                                        <Star className="h-3.5 w-3.5" />
+                                        IMDb
+                                    </div>
+                                    <p className="mt-1 text-sm font-bold">{item.imdbRating}</p>
+                                </div>
+                            )}
+                        </div>
+
+                        {isAlbum(item) && (
+                            <>
+                                <div className="grid gap-3 sm:grid-cols-2">
+                                    <div className="crystal-cell rounded-xl p-3">
+                                        <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-muted-foreground">
+                                            Artista
+                                        </p>
+                                        <p className="mt-1 text-sm font-bold">{item.artist}</p>
+                                    </div>
+                                    <div className="crystal-cell rounded-xl p-3">
+                                        <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-muted-foreground">
+                                            Producción
+                                        </p>
+                                        <p className="mt-1 text-sm font-bold">{item.producer}</p>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.18em] text-muted-foreground">
+                                        <ListMusic className="h-4 w-4" />
+                                        Canciones
+                                    </h4>
+                                    <ol className="crystal-cell mt-3 divide-y divide-slate-200/60 overflow-hidden rounded-2xl text-sm dark:divide-white/10">
+                                        {item.tracks.map((track, index) => (
+                                            <li key={`${track.title}-${index}`} className="grid grid-cols-[42px_1fr_auto] items-center gap-3 px-4 py-2.5">
+                                                <span className="text-xs font-extrabold text-muted-foreground">
+                                                    {String(index + 1).padStart(2, "0")}
+                                                </span>
+                                                <span className="font-semibold">{track.title}</span>
+                                                <span className="font-mono text-xs text-muted-foreground">{track.duration}</span>
+                                            </li>
+                                        ))}
+                                    </ol>
+                                    {item.note && (
+                                        <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+                                            {item.note}
+                                        </p>
+                                    )}
+                                </div>
+                            </>
+                        )}
+
+                        {isScreenItem(item) && (
+                            <>
+                                <div className="grid gap-3 sm:grid-cols-2">
+                                    <div className="crystal-cell rounded-xl p-3">
+                                        <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-muted-foreground">
+                                            Dirección / creación
+                                        </p>
+                                        <p className="mt-1 text-sm font-bold">{item.director}</p>
+                                    </div>
+                                    <div className="crystal-cell rounded-xl p-3">
+                                        <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-muted-foreground">
+                                            Producción
+                                        </p>
+                                        <p className="mt-1 text-sm font-bold">{item.producer}</p>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.18em] text-muted-foreground">
+                                        <Users className="h-4 w-4" />
+                                        Reparto principal
+                                    </h4>
+                                    <div className="mt-3 flex flex-wrap gap-2">
+                                        {item.cast.map((actor) => (
+                                            <span
+                                                key={actor}
+                                                className="rounded-full border border-sky-500/15 bg-sky-500/10 px-3 py-1 text-xs font-bold text-sky-800 dark:text-sky-200"
+                                            >
+                                                {actor}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                </div>
+            </motion.article>
+        </div>
+    );
+}
 
 export function HomePersonal() {
-    const [activeTab, setActiveTab] = React.useState<"music" | "movie" | "series">("music");
-    const currentTab = tabs.find((t) => t.id === activeTab) || tabs[0];
+    const [activeCatalog, setActiveCatalog] = React.useState<PersonalCatalogType>("music");
+    const [selectedItem, setSelectedItem] = React.useState<PersonalItem | null>(null);
+    const currentCatalog = personalCatalogs.find((catalog) => catalog.id === activeCatalog) ?? personalCatalogs[0];
+    const ActiveIcon = catalogIcons[currentCatalog.id];
 
     return (
         <section id="personal" className="relative py-12 overflow-visible">
-            {/* Visual Aero Ambient Background Elements */}
-            <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-72 h-72 rounded-full bg-emerald-400/15 blur-3xl pointer-events-none -z-10" />
-            <div className="absolute top-1/3 right-1/4 -translate-y-1/2 w-64 h-64 rounded-full bg-blue-400/15 blur-3xl pointer-events-none -z-10" />
-
             <Container>
-                {/* Header */}
-                <div className="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                <div className="mb-8 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
                     <div>
-                        <div className="flex items-center gap-2 text-blue-500 font-bold text-xs uppercase tracking-wider mb-1">
-                            <Sparkles className="w-3.5 h-3.5" />
-                            <span>Intereses & Ocio</span>
+                        <div className="mb-1 flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.18em] text-sky-700 dark:text-cyan-200">
+                            <Sparkles className="h-3.5 w-3.5" />
+                            <span>Catálogo personal</span>
                         </div>
-                        <h2 className="text-3xl font-extrabold font-heading text-foreground tracking-tight">
-                            Mi Espacio Personal
+                        <h2 className="font-heading text-3xl font-extrabold tracking-tight text-foreground">
+                            Referencias que también construyen criterio
                         </h2>
-                        <p className="text-sm text-muted-foreground mt-1 max-w-xl">
-                            Una recopilación de los álbumes, películas y series favoritas que inspiran mi creatividad y llenan mis horas de descanso.
+                        <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                            Un espacio separado del portafolio profesional, con vistas fluidas para música, cine y series.
                         </p>
                     </div>
 
-                    {/* Frutiger Aero Glossy Tab Buttons */}
-                    <div className="flex glass-panel glass-intensity-light rounded-full p-1 border border-white/40 dark:border-white/10 self-start shadow-inner">
-                        {tabs.map((tab) => {
-                            const TabIcon = tab.icon;
-                            const isActive = activeTab === tab.id;
+                    <div className="crystal-cell flex w-full gap-2 overflow-x-auto rounded-2xl p-1.5 md:w-auto">
+                        {personalCatalogs.map((catalog) => {
+                            const CatalogIcon = catalogIcons[catalog.id];
+                            const isActive = activeCatalog === catalog.id;
+
                             return (
                                 <button
-                                    key={tab.id}
-                                    onClick={() => setActiveTab(tab.id as any)}
+                                    key={catalog.id}
+                                    type="button"
+                                    onClick={() => setActiveCatalog(catalog.id)}
                                     className={cn(
-                                        "relative flex items-center gap-2 px-4 py-2 text-xs font-extrabold rounded-full transition-all duration-300 z-10",
-                                        isActive ? "text-white" : "text-foreground/75 hover:text-foreground hover:bg-white/10"
+                                        "relative flex min-w-fit items-center gap-2 rounded-xl px-4 py-2 text-xs font-extrabold transition-colors",
+                                        isActive ? "text-white" : "text-foreground/70 hover:text-foreground"
                                     )}
                                 >
                                     {isActive && (
                                         <motion.span
-                                            layoutId="activePersonalTab"
-                                            className="absolute inset-0 bg-gradient-to-b from-sky-400/90 via-sky-500/95 to-blue-600 rounded-full -z-10 shadow-[inset_0_1.5px_0_rgba(255,255,255,0.45),0_3px_8px_rgba(2,132,199,0.4)] border border-sky-400/20"
-                                            transition={{ type: "spring", stiffness: 350, damping: 28 }}
+                                            layoutId="activePersonalCatalog"
+                                            className="absolute inset-0 rounded-xl border border-sky-400/30 bg-gradient-to-b from-sky-500 to-blue-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.42),0_7px_16px_rgba(2,132,199,0.24)]"
+                                            transition={{ type: "spring", stiffness: 360, damping: 30 }}
                                         />
                                     )}
-                                    <TabIcon className={cn("w-3.5 h-3.5", isActive ? "animate-spin-slow" : "")} />
-                                    {tab.name}
+                                    <CatalogIcon className="relative h-3.5 w-3.5" />
+                                    <span className="relative">{catalog.name}</span>
                                 </button>
                             );
                         })}
                     </div>
                 </div>
 
-                {/* Main Cards Grid */}
-                <motion.div
-                    layout
-                    className={cn("grid gap-4 sm:gap-6", currentTab.gridClass)}
-                >
-                    <AnimatePresence mode="popLayout">
-                        {currentTab.data.map((item, idx) => (
-                            <motion.div
-                                key={item.title + activeTab}
-                                layout
-                                initial={{ opacity: 0, scale: 0.9, y: 15 }}
-                                animate={{ opacity: 1, scale: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.9, y: 15 }}
-                                transition={{
-                                    type: "spring",
-                                    stiffness: 260,
-                                    damping: 24,
-                                    delay: idx * 0.03
-                                }}
-                                whileHover={{ 
-                                    scale: 1.06, 
-                                    y: -8, 
-                                    rotateZ: idx % 2 === 0 ? 1 : -1,
-                                    transition: { duration: 0.2, ease: "easeOut" }
-                                }}
-                                className="group relative"
+                <GlassPanel className="mb-6 p-5 md:p-6" intensity="medium">
+                    <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                        <div>
+                            <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-sky-700 dark:text-cyan-200">
+                                {currentCatalog.eyebrow}
+                            </p>
+                            <h3 className="mt-1 flex items-center gap-2 font-heading text-2xl font-extrabold">
+                                <ActiveIcon className="h-5 w-5 text-sky-600 dark:text-cyan-200" />
+                                {currentCatalog.name}
+                            </h3>
+                        </div>
+                        <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                            {currentCatalog.description}
+                        </p>
+                    </div>
+                </GlassPanel>
+
+                <AnimatePresence mode="wait" initial={false}>
+                    <motion.div
+                        key={currentCatalog.id}
+                        initial={{ opacity: 0.88, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.28, ease: "easeOut" }}
+                        className={cn(
+                            "grid gap-4 sm:gap-5",
+                            currentCatalog.id === "music"
+                                ? "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6"
+                                : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+                        )}
+                    >
+                        {currentCatalog.items.map((item, index) => (
+                            <motion.button
+                                type="button"
+                                key={item.id}
+                                onClick={() => setSelectedItem(item)}
+                                initial={{ opacity: 1, y: 0 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.28, delay: index * 0.025 }}
+                                whileHover={{ y: -6 }}
+                                className="group text-left"
                             >
-                                <GlassPanel 
-                                    className="p-2.5 h-full rounded-2xl flex flex-col hover:shadow-glass-lg transition-shadow duration-300 overflow-hidden cursor-default border border-white/40 dark:border-white/10"
-                                    intensity="medium"
-                                >
-                                    {/* Cover Image Wrapper with Reflection Glare */}
-                                    <div className={cn("relative w-full rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900 border border-white/20 dark:border-white/5 shadow-sm mb-3", currentTab.aspect)}>
+                                <GlassPanel className="flex h-full flex-col overflow-hidden rounded-2xl p-2.5 transition-all duration-300 hover:shadow-glass-lg" intensity="medium">
+                                    <div
+                                        className={cn(
+                                            "crystal-media relative mb-3 w-full overflow-hidden rounded-xl shadow-sm",
+                                            item.type === "music" ? "aspect-square" : "aspect-[2/3]"
+                                        )}
+                                    >
                                         <Image
                                             src={item.image}
                                             alt={item.title}
                                             fill
-                                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 15vw"
+                                            priority={currentCatalog.id === "music" && index < 6}
+                                            loading={currentCatalog.id === "music" && index < 6 ? undefined : "lazy"}
+                                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
                                             className="object-cover transition-transform duration-500 group-hover:scale-105"
                                         />
-                                        
-                                        {/* Realistic Frutiger Aero Glossy Reflection Glare Overlay */}
-                                        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/25 opacity-100 group-hover:opacity-80 transition-opacity duration-300 pointer-events-none" />
-                                        
-                                        {/* Glossy diagonal highlight stripe */}
-                                        <div className="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] bg-gradient-to-r from-transparent via-white/20 to-transparent rotate-35 -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out pointer-events-none" />
+                                        <div className="absolute inset-0 bg-gradient-to-tr from-slate-950/10 via-white/10 to-white/25 dark:from-slate-950/45 dark:via-cyan-100/5 dark:to-cyan-100/15" />
+                                        <div className="absolute left-2 top-2 rounded-full border border-white/25 bg-slate-950/45 px-2 py-0.5 text-[9px] font-extrabold text-white shadow-sm">
+                                            {item.year}
+                                        </div>
                                     </div>
 
-                                    {/* Text Info */}
-                                    <div className="px-1 flex-1 flex flex-col justify-end">
-                                        <h3 className="text-xs font-bold text-foreground line-clamp-1 group-hover:text-primary transition-colors leading-tight">
-                                            {item.title}
-                                        </h3>
-                                        <p className="text-[10px] text-muted-foreground/80 truncate mt-0.5 font-medium">
-                                            {item.subtitle}
-                                        </p>
+                                    <div className="flex flex-1 flex-col justify-between px-1 pb-1">
+                                        <div>
+                                            <h4 className="line-clamp-1 text-xs font-extrabold leading-tight text-foreground transition-colors group-hover:text-primary">
+                                                {item.title}
+                                            </h4>
+                                            <p className="mt-0.5 truncate text-[10px] font-semibold text-muted-foreground">
+                                                {item.subtitle}
+                                            </p>
+                                        </div>
+                                        <span className="mt-3 text-[10px] font-extrabold text-foreground/60 transition-colors group-hover:text-primary">
+                                            Abrir detalle
+                                        </span>
                                     </div>
                                 </GlassPanel>
-                            </motion.div>
+                            </motion.button>
                         ))}
-                    </AnimatePresence>
-                </motion.div>
+                    </motion.div>
+                </AnimatePresence>
             </Container>
+
+            <AnimatePresence>
+                {selectedItem && (
+                    <PersonalItemModal item={selectedItem} onClose={() => setSelectedItem(null)} />
+                )}
+            </AnimatePresence>
         </section>
     );
 }

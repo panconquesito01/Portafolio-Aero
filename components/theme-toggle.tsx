@@ -12,14 +12,14 @@ export function ThemeToggle() {
 
     if (!mounted) {
         return (
-            <button className="relative p-2 rounded-xl bg-white/30 dark:bg-white/8 border border-white/20 dark:border-white/10 w-9 h-9" />
+            <button className="relative p-2 rounded-xl bg-white/30 dark:bg-white/10 border border-white/20 dark:border-white/10 w-9 h-9" />
         );
     }
 
     return (
         <button
             onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-            className="relative p-2 rounded-xl bg-white/30 dark:bg-white/8 border border-white/20 dark:border-white/10 text-foreground/60 hover:text-foreground hover:bg-white/50 dark:hover:bg-white/12 transition-all duration-200"
+            className="relative p-2 rounded-xl bg-white/30 dark:bg-white/10 border border-white/20 dark:border-white/10 text-foreground/60 hover:text-foreground hover:bg-white/50 dark:hover:bg-white/15 transition-all duration-200"
             aria-label="Toggle theme"
         >
             <Sun className="h-[1.1rem] w-[1.1rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />

@@ -1,12 +1,11 @@
 "use client";
 
-import * as React from "react";
 import { Container } from "@/components/ui/container";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { GlossyButton } from "@/components/ui/GlossyButton";
 import { experienceEntries } from "@/data/experience";
 import { motion } from "framer-motion";
-import { ArrowRight, Laptop } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 // Icons from react-icons
 import { FaLaptopCode, FaGithub } from "react-icons/fa";
@@ -42,10 +41,11 @@ export function HomeExperience() {
                 <div className="mb-8 flex items-center justify-between">
                     <div>
                         <h2 className="text-3xl font-extrabold font-heading text-foreground tracking-tight">
-                            Experiencia Profesional
+                            Experiencia y enfoque profesional
                         </h2>
                         <p className="text-sm text-muted-foreground mt-1 max-w-xl">
-                            Mi trayectoria como desarrollador, desde proyectos corporativos en .NET hasta desarrollos open-source y videojuegos.
+                            No me limito a construir pantallas: analizo requerimientos, datos,
+                            arquitectura, errores productivos y flujos reales de operación.
                         </p>
                     </div>
                     <GlossyButton href="/about" variant="secondary" size="sm" className="hidden sm:inline-flex">
@@ -58,14 +58,14 @@ export function HomeExperience() {
                     {featuredExperience.map((entry, idx) => (
                         <motion.div
                             key={idx}
-                            initial={{ opacity: 0, x: -20 }}
+                            initial={{ opacity: 1, x: 0 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, delay: idx * 0.1 }}
                             className="relative"
                         >
                             {/* Node point marker */}
-                            <div className="absolute -left-[53px] top-1.5 w-10 h-10 rounded-full bg-white dark:bg-slate-900 border border-white/40 dark:border-white/5 flex items-center justify-center shadow-md z-10 hover:scale-110 transition-transform">
+                            <div className="crystal-cell absolute -left-[53px] top-1.5 w-10 h-10 rounded-full flex items-center justify-center shadow-md z-10 hover:scale-110 transition-transform">
                                 {getExpIcon(entry.company)}
                             </div>
 
@@ -82,7 +82,7 @@ export function HomeExperience() {
                                 <h3 className="text-lg font-bold font-heading text-foreground">
                                     {entry.role}
                                 </h3>
-                                <p className="mt-3 text-sm text-muted-foreground/80 leading-relaxed">
+                                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
                                     {entry.description}
                                 </p>
                                 

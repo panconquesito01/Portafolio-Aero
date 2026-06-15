@@ -9,42 +9,42 @@ export interface ExperienceEntry {
 export const experienceEntries: ExperienceEntry[] = [
     {
         period: "2024 – Presente",
-        role: "Desarrollador Full Stack ERP",
+        role: "Desarrollador Full Stack ERP / .NET",
         company: "Aurosoft",
         description:
-            "Migración y desarrollo de un sistema ERP multi-inquilino a gran escala para empresas colombianas. Implementación de módulos de inventarios, contabilidad, nómina y facturación electrónica DIAN a través de Conexus. Integración de webhooks con WhatsApp Graph API y generación de reportes con FastReport bajo una arquitectura robusta.",
-        skills: ["C#", "ASP.NET Core 10", "SQL Server", "Dapper", "SignalR", "Conexus DIAN", "FastReport"],
+            "Desarrollo y mantenimiento de módulos ERP para operaciones reales de negocio: inventarios, facturación, cartera, contabilidad, nómina y reportabilidad. Trabajo sobre .NET, SQL Server y componentes empresariales, cuidando estabilidad, trazabilidad, rendimiento y compatibilidad con procesos existentes.",
+        skills: ["C#", ".NET", "ASP.NET MVC", "SQL Server", "Entity Framework", "FastReport", "Telerik"],
     },
     {
         period: "2024 – Presente",
-        role: "Desarrollador & Colaborador Open Source",
-        company: "Awesome GitHub Copilot",
+        role: "Automatización SQL y Reportes Empresariales",
+        company: "Aurosoft / Sistemas Corporativos",
         description:
-            "Diseño y desarrollo de herramientas avanzadas para la comunidad de desarrollo en GitHub Copilot. Creación de agentes personalizados, instrucciones avanzadas, servidores MCP (Model Context Protocol) y flujos CI/CD para integraciones de IA.",
-        skills: ["Node.js", "AI Tooling", "GitHub Actions", "MCP", "JSON Schemas"],
+            "Construcción de consultas, procedimientos almacenados, vistas y flujos de extracción para reportes financieros, facturación, auditoría e inventario. Diagnóstico de datos inconsistentes, validación de reglas de negocio y optimización de consultas para reducir tiempos de respuesta.",
+        skills: ["T-SQL", "Stored Procedures", "SQL Jobs", "NPOI", "FastReport", "Query Tuning"],
+    },
+    {
+        period: "2023 – Presente",
+        role: "Frontend Web y Experiencia de Producto",
+        company: "Proyectos Propios / Freelance",
+        description:
+            "Diseño e implementación de interfaces modernas con Next.js, React, TypeScript y Tailwind, priorizando jerarquía visual, responsive real, accesibilidad y animaciones sutiles. Enfoque en pantallas que explican valor de negocio sin sacrificar rendimiento.",
+        skills: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "UI Architecture"],
     },
     {
         period: "2022 – 2024",
-        role: "Desarrollador de Videojuegos & Motores Web",
-        company: "Desarrollo Autónomo",
+        role: "Arquitectura, Debugging y Mantenimiento",
+        company: "Sistemas Legacy y Evolutivos",
         description:
-            "Desarrollo de VoxelCraft, un motor voxel 3D para navegadores con renderizado procedural determinista y ciclo día/noche. Programación de tragamonedas estilo RPG de cumpleaños (Retro Birthday Slots) con sintetizador de sonido en tiempo real usando Web Audio API.",
-        skills: ["TypeScript", "Three.js", "Vite", "Web Audio API", "HTML5 Canvas"],
-    },
-    {
-        period: "2021 – 2022",
-        role: "Programador de Gameplay & Scripting",
-        company: "Roblox Studio (Rojo & Luau)",
-        description:
-            "Automatización e implementación de mecánicas de juego multijugador, comportamientos de iluminación dinámica y ajuste de materiales en tiempo real utilizando Luau. Empaquetamiento e integración de código local con Roblox Studio a través de Rojo.",
-        skills: ["Luau", "Rojo", "Roblox Studio", "Aftman"],
+            "Análisis de errores en módulos grandes, lectura de código existente, identificación de causas raíz y entrega de cambios controlados sin romper flujos productivos. Trabajo con control de versiones, revisión de impactos y documentación técnica puntual.",
+        skills: ["Debugging", "Git", "Azure DevOps", "Code Review", "Refactoring", "Soporte Productivo"],
     },
     {
         period: "2020 – 2021",
-        role: "Desarrollador Frontend",
-        company: "Creación de Sitios Web e Interfaces",
+        role: "Desarrollador de Interfaces y Prototipos",
+        company: "Laboratorio Personal",
         description:
-            "Maquetación y diseño UI de blogs interactivos y portales responsivos (Santa Marta Travel Blog). Creación de diseños estructurados bajo el estándar Bento Grid, paneles con efecto de cristal (glassmorphic panels) y animaciones fluidas al hacer scroll.",
-        skills: ["HTML5", "CSS3", "JavaScript", "Bento Grid", "Scroll Animations"],
+            "Creación de prototipos visuales, experiencias interactivas y sitios responsive para practicar composición, diseño de sistemas visuales, performance de UI y patrones de navegación fluidos.",
+        skills: ["HTML5", "CSS3", "JavaScript", "Responsive Design", "Motion UI"],
     },
 ];

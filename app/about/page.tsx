@@ -49,33 +49,32 @@ export default function AboutPage() {
                             Sobre Mí
                         </h1>
                         <p className="text-lg text-foreground/70 leading-relaxed mb-10">
-                            Soy un Desarrollador Full Stack con amplia experiencia en la 
-                            creación de sistemas empresariales, soluciones ERP, 
-                            aplicaciones web modernas y APIs de alto rendimiento. 
-                            Combino una arquitectura backend sólida y segura con interfaces de 
-                            usuario limpias, intuitivas, dinámicas y eficientes.
+                            Soy Ingeniero de Sistemas y desarrollador Full Stack enfocado en
+                            sistemas empresariales reales: ERP, backend .NET, SQL Server,
+                            reportes, automatización y frontend moderno. Trabajo desde el análisis
+                            del requerimiento hasta el debugging, la entrega y el mantenimiento.
                         </p>
 
                         <h2 className="text-xl font-bold font-heading mb-6 flex items-center gap-2">
                             <FaServer className="text-primary w-5 h-5" />
-                            Áreas de Especialización
+                            Áreas de especialización
                         </h2>
                         <div className="grid md:grid-cols-3 gap-6">
                             {[
                                 {
                                     icon: <FaServer className="w-6 h-6 text-primary" />,
-                                    title: "Desarrollo Backend",
-                                    desc: "Construcción de APIs robustas, arquitectura de microservicios y lógica de negocio a nivel empresarial con alta concurrencia.",
+                                    title: "Backend empresarial",
+                                    desc: "Lógica de negocio, servicios .NET, módulos ERP y mantenimiento de flujos productivos con control de impacto.",
                                 },
                                 {
                                     icon: <FaGlobe className="w-6 h-6 text-primary" />,
-                                    title: "Interfaces Modernas",
-                                    desc: "Diseño de experiencias web responsivas, fluidas y de alto rendimiento usando React, Next.js y CSS avanzado.",
+                                    title: "Frontend de producto",
+                                    desc: "Interfaces con Next.js, React, TypeScript y Tailwind, cuidando responsive, accesibilidad y jerarquía visual.",
                                 },
                                 {
                                     icon: <FaDatabase className="w-6 h-6 text-primary" />,
-                                    title: "Sistemas Corporativos",
-                                    desc: "Experiencia real en la integración de módulos ERP, gestión de inventarios, facturación y reportabilidad en tiempo real.",
+                                    title: "Datos y reportes",
+                                    desc: "SQL Server, procedimientos, consultas, FastReport, Telerik y salidas financieras o de facturación.",
                                 },
                              ].map((item) => (
                                 <GlassPanel
@@ -83,7 +82,7 @@ export default function AboutPage() {
                                     className="p-5 hover:scale-[1.02] transition-transform duration-250"
                                     intensity="light"
                                 >
-                                    <div className="w-10 h-10 rounded-xl bg-white/20 dark:bg-white/5 border border-white/25 dark:border-white/10 flex items-center justify-center">
+                                    <div className="crystal-cell w-10 h-10 rounded-xl flex items-center justify-center">
                                         {item.icon}
                                     </div>
                                     <h3 className="mt-4 font-bold font-heading text-foreground">
@@ -101,7 +100,7 @@ export default function AboutPage() {
                     <GlassPanel className="p-8 md:p-12 max-w-4xl" intensity="strong">
                         <h2 className="text-2xl font-bold font-heading mb-8 flex items-center gap-2">
                             <FaLaptopCode className="text-primary w-6 h-6" />
-                            Experiencia Profesional Real
+                            Experiencia profesional real
                         </h2>
 
                         <div className="relative pl-8 border-l border-white/25 dark:border-white/10 ml-4 space-y-10">
@@ -114,7 +113,7 @@ export default function AboutPage() {
                                     className="relative"
                                 >
                                     {/* Timeline Node Point */}
-                                    <div className="absolute -left-[53px] top-1.5 w-10 h-10 rounded-full bg-white dark:bg-slate-900 border border-white/45 dark:border-white/10 flex items-center justify-center shadow-md z-10 hover:scale-110 transition-transform">
+                                    <div className="crystal-cell absolute -left-[53px] top-1.5 w-10 h-10 rounded-full flex items-center justify-center shadow-md z-10 hover:scale-110 transition-transform">
                                         {getExperienceIcon(entry.company)}
                                     </div>
 
