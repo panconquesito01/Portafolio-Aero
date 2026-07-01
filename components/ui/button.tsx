@@ -8,12 +8,12 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ className, variant = "primary", size = "md", asChild = false, ...props }, ref) => {
+    ({ className, variant = "primary", size = "md", asChild = false, type, ...props }, ref) => {
         const variants = {
-            primary: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm",
-            secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-            outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-            ghost: "hover:bg-accent hover:text-accent-foreground",
+            primary: "glossy-btn",
+            secondary: "glossy-btn-secondary",
+            outline: "glossy-btn-secondary bg-transparent",
+            ghost: "border border-transparent bg-transparent text-foreground/75 hover:bg-white/25 hover:text-foreground dark:hover:bg-white/10",
         };
 
         const sizes = {
@@ -23,7 +23,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         };
 
         const classes = cn(
-            "inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+            "inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-all focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
             variants[variant],
             sizes[size],
             className
@@ -42,6 +42,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         return (
             <button
                 ref={ref}
+                type={type ?? "button"}
                 className={classes}
                 {...props}
             />

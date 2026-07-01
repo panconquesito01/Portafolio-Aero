@@ -18,7 +18,6 @@ export default function ContactPage() {
             icon: <MapPin size={20} className="text-aero-green" />,
             label: "Ubicación",
             value: "Colombia / Remoto",
-            href: "#",
         },
     ];
 
@@ -30,7 +29,7 @@ export default function ContactPage() {
         },
         {
             icon: <Linkedin size={18} />,
-            href: "https://linkedin.com",
+            href: "https://www.linkedin.com/in/david-steven-rivera-alfonso-0b55b52b3/",
             label: "LinkedIn",
         },
     ];
@@ -75,12 +74,18 @@ export default function ContactPage() {
                                         <div className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
                                             {method.label}
                                         </div>
-                                        <a
-                                            href={method.href}
-                                            className="text-sm font-semibold text-foreground hover:text-primary transition-colors"
-                                        >
-                                            {method.value}
-                                        </a>
+                                        {method.href ? (
+                                            <a
+                                                href={method.href}
+                                                className="text-sm font-semibold text-foreground hover:text-primary transition-colors"
+                                            >
+                                                {method.value}
+                                            </a>
+                                        ) : (
+                                            <span className="text-sm font-semibold text-foreground">
+                                                {method.value}
+                                            </span>
+                                        )}
                                     </div>
                                 </GlassPanel>
                             ))}
@@ -159,7 +164,7 @@ export default function ContactPage() {
                                         placeholder="Cuéntame más sobre tu proyecto o idea..."
                                     />
                                 </div>
-                                <GlossyButton size="lg" className="w-full">
+                                <GlossyButton type="submit" size="lg" className="w-full">
                                     <Send className="w-4 h-4" />
                                     Enviar Mensaje
                                 </GlossyButton>

@@ -22,6 +22,7 @@ export function GlossyButton({
     className,
     onClick,
     disabled,
+    type,
     ...props
 }: GlossyButtonProps) {
     const sizeMap = {
@@ -45,11 +46,13 @@ export function GlossyButton({
     if (href) {
         return (
             <a 
-                href={href} 
+                href={disabled ? undefined : href}
                 className={classes} 
                 target={target} 
                 rel={rel} 
                 onClick={onClick as any}
+                aria-disabled={disabled || undefined}
+                tabIndex={disabled ? -1 : undefined}
             >
                 {children}
             </a>
@@ -61,6 +64,7 @@ export function GlossyButton({
             className={classes} 
             onClick={onClick} 
             disabled={disabled}
+            type={type ?? "button"}
             {...props}
         >
             {children}

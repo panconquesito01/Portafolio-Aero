@@ -4,12 +4,11 @@ import * as React from "react";
 import { Container } from "@/components/ui/container";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { ContactForm } from "@/components/contact/ContactForm";
-import { motion } from "framer-motion";
-import { Mail, MapPin, Globe, Github, Linkedin } from "lucide-react";
+import { Mail, MapPin, Github, Linkedin } from "lucide-react";
 
 export function HomeContact() {
     return (
-        <section id="contacto" className="relative py-12 overflow-visible">
+        <section id="contacto" className="scroll-section relative py-12 overflow-visible">
             <Container>
                 {/* Section Header */}
                 <div className="mb-8">
@@ -24,13 +23,7 @@ export function HomeContact() {
                 {/* 2-Column Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                     {/* Left Column — Info */}
-                    <motion.div
-                        initial={{ opacity: 1, x: 0 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-50px" }}
-                        transition={{ duration: 0.5 }}
-                        className="space-y-6"
-                    >
+                    <div className="space-y-6">
                         <GlassPanel className="p-6 md:p-8" intensity="medium">
                             <h3 className="text-lg font-bold font-heading text-foreground mb-4">
                                 Información de Contacto
@@ -92,22 +85,17 @@ export function HomeContact() {
                                 ))}
                             </div>
                         </GlassPanel>
-                    </motion.div>
+                    </div>
 
                     {/* Right Column — Form */}
-                    <motion.div
-                        initial={{ opacity: 1, x: 0 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-50px" }}
-                        transition={{ duration: 0.5 }}
-                    >
+                    <div>
                         <GlassPanel className="p-6 md:p-8" intensity="medium">
                             <h3 className="text-lg font-bold font-heading text-foreground mb-4">
                                 Enviar un Mensaje
                             </h3>
                             <ContactForm />
                         </GlassPanel>
-                    </motion.div>
+                    </div>
                 </div>
             </Container>
         </section>

@@ -35,6 +35,15 @@ function ProjectDetailsModal({
     project: Project;
     onClose: () => void;
 }) {
+    React.useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === "Escape") onClose();
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [onClose]);
+
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             <motion.button
@@ -47,7 +56,10 @@ function ProjectDetailsModal({
                 className="absolute inset-0 bg-slate-950/55 backdrop-blur-md"
             />
 
-            <motion.div
+            <motion.article
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby={`project-modal-${project.id}`}
                 initial={{ opacity: 0, scale: 0.96, y: 18 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.96, y: 18 }}
@@ -69,7 +81,7 @@ function ProjectDetailsModal({
 
                 <div className="flex-1 space-y-6 overflow-y-auto p-6 md:p-8">
                     <div>
-                        <h3 className="font-heading text-2xl font-extrabold">{project.title}</h3>
+                        <h3 id={`project-modal-${project.id}`} className="font-heading text-2xl font-extrabold">{project.title}</h3>
                         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                             {project.description}
                         </p>
@@ -117,7 +129,7 @@ function ProjectDetailsModal({
                         )}
                     </div>
                 </div>
-            </motion.div>
+            </motion.article>
         </div>
     );
 }
@@ -127,7 +139,7 @@ export function FeaturedProjects() {
     const [selectedProject, setSelectedProject] = React.useState<Project | null>(null);
 
     return (
-        <section id="proyectos" className="relative py-12 overflow-visible">
+        <section id="proyectos" className="scroll-section relative py-12 overflow-visible">
             <Container>
                 <div className="mb-8 flex items-center justify-between gap-4">
                     <div>
@@ -144,17 +156,15 @@ export function FeaturedProjects() {
                 </div>
 
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                    {featuredList.map((project, idx) => (
-                        <motion.div
+                    {featuredList.map((project) => (
+                        <button
                             key={project.id}
-                            initial={{ opacity: 1, y: 0 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-50px" }}
-                            transition={{ duration: 0.45, delay: idx * 0.08 }}
+                            type="button"
+                            onClick={() => setSelectedProject(project)}
+                            className="group h-full w-full rounded-2xl text-left transition-transform duration-300 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
                         >
                             <GlassPanel
-                                onClick={() => setSelectedProject(project)}
-                                className="group flex h-full cursor-pointer flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-glass-lg"
+                                className="flex h-full cursor-pointer flex-col overflow-hidden transition-all duration-300 hover:shadow-glass-lg"
                                 intensity="medium"
                             >
                                 <div className="crystal-media relative h-44 w-full shrink-0 overflow-hidden rounded-t-2xl border-x-0 border-t-0">
@@ -162,8 +172,8 @@ export function FeaturedProjects() {
                                         src={project.image}
                                         alt={project.title}
                                         fill
-                                        priority={idx === 0}
-                                        loading={idx === 0 ? undefined : "lazy"}
+                                        loading="lazy"
+                                        decoding="async"
                                         sizes="(max-width: 768px) 100vw, 33vw"
                                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                                     />
@@ -200,7 +210,7 @@ export function FeaturedProjects() {
                                     </div>
                                 </div>
                             </GlassPanel>
-                        </motion.div>
+                        </button>
                     ))}
                 </div>
 

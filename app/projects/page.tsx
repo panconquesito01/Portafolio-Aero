@@ -35,6 +35,15 @@ function ProjectDetailsModal({
     project: Project;
     onClose: () => void;
 }) {
+    React.useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === "Escape") onClose();
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [onClose]);
+
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             <motion.button
@@ -47,7 +56,10 @@ function ProjectDetailsModal({
                 className="absolute inset-0 bg-slate-950/55 backdrop-blur-md"
             />
 
-            <motion.div
+            <motion.article
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby={`project-page-modal-${project.id}`}
                 initial={{ opacity: 0, scale: 0.96, y: 18 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.96, y: 18 }}
@@ -69,7 +81,7 @@ function ProjectDetailsModal({
 
                 <div className="flex-1 space-y-6 overflow-y-auto p-6 md:p-8">
                     <div>
-                        <h2 className="font-heading text-2xl font-extrabold">{project.title}</h2>
+                        <h2 id={`project-page-modal-${project.id}`} className="font-heading text-2xl font-extrabold">{project.title}</h2>
                         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                             {project.description}
                         </p>
@@ -117,7 +129,7 @@ function ProjectDetailsModal({
                         )}
                     </div>
                 </div>
-            </motion.div>
+            </motion.article>
         </div>
     );
 }
@@ -161,16 +173,19 @@ export default function ProjectsPage() {
                     className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
                 >
                     {projects.map((project) => (
-                        <motion.div
+                        <motion.button
                             key={project.id}
+                            type="button"
+                            onClick={() => setSelectedProject(project)}
                             variants={{
                                 hidden: { opacity: 0, y: 20 },
                                 visible: { opacity: 1, y: 0 },
                             }}
+                            whileHover={{ y: -4 }}
+                            className="group h-full w-full rounded-2xl text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
                         >
                             <GlassPanel
-                                onClick={() => setSelectedProject(project)}
-                                className="group flex h-full cursor-pointer flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-glass-lg"
+                                className="flex h-full cursor-pointer flex-col overflow-hidden transition-all duration-300 hover:shadow-glass-lg"
                                 intensity="medium"
                             >
                                 <div className="crystal-media relative h-48 w-full shrink-0 overflow-hidden rounded-t-2xl border-x-0 border-t-0">
@@ -214,7 +229,7 @@ export default function ProjectsPage() {
                                     </div>
                                 </div>
                             </GlassPanel>
-                        </motion.div>
+                        </motion.button>
                     ))}
                 </motion.div>
             </Container>

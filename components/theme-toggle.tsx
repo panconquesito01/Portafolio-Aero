@@ -12,12 +12,18 @@ export function ThemeToggle() {
 
     if (!mounted) {
         return (
-            <button className="relative p-2 rounded-xl bg-white/30 dark:bg-white/10 border border-white/20 dark:border-white/10 w-9 h-9" />
+            <button
+                type="button"
+                aria-label="Cargando selector de tema"
+                disabled
+                className="relative h-9 w-9 rounded-xl border border-white/20 bg-white/30 p-2 dark:border-white/10 dark:bg-white/10"
+            />
         );
     }
 
     return (
         <button
+            type="button"
             onClick={() => setTheme(theme === "light" ? "dark" : "light")}
             className="relative p-2 rounded-xl bg-white/30 dark:bg-white/10 border border-white/20 dark:border-white/10 text-foreground/60 hover:text-foreground hover:bg-white/50 dark:hover:bg-white/15 transition-all duration-200"
             aria-label="Toggle theme"

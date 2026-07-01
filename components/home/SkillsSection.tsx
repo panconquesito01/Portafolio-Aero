@@ -4,7 +4,6 @@ import * as React from "react";
 import { Container } from "@/components/ui/container";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { stackCategories } from "@/data/skills";
-import { motion } from "framer-motion";
 import { Code, Cpu, Database, Server, Wrench } from "lucide-react";
 
 // Icon sub-libraries from react-icons
@@ -71,7 +70,7 @@ export function SkillsSection() {
     };
 
     return (
-        <section id="tecnologias" className="relative py-12 overflow-visible">
+        <section id="tecnologias" className="scroll-section relative py-12 overflow-visible">
             <Container>
                 {/* Section Header */}
                 <div className="mb-8">
@@ -87,12 +86,8 @@ export function SkillsSection() {
                 {/* Grid of Categories */}
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                     {stackCategories.map((cat, idx) => (
-                        <motion.div
+                        <div
                             key={cat.category}
-                            initial={{ opacity: 1, y: 0 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-50px" }}
-                            transition={{ duration: 0.5, delay: idx * 0.1 }}
                         >
                             <GlassPanel className="p-6 h-full flex flex-col justify-between hover:shadow-glass-lg transition-all duration-300" intensity="medium">
                                 <div>
@@ -127,7 +122,7 @@ export function SkillsSection() {
                                     </div>
                                 </div>
                             </GlassPanel>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
             </Container>

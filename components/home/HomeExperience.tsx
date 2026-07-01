@@ -4,7 +4,6 @@ import { Container } from "@/components/ui/container";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { GlossyButton } from "@/components/ui/GlossyButton";
 import { experienceEntries } from "@/data/experience";
-import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 // Icons from react-icons
@@ -35,7 +34,7 @@ export function HomeExperience() {
     const featuredExperience = experienceEntries.slice(0, 3);
 
     return (
-        <section id="experiencia" className="relative py-12 overflow-visible">
+        <section id="experiencia" className="scroll-section relative py-12 overflow-visible">
             <Container>
                 {/* Section Header */}
                 <div className="mb-8 flex items-center justify-between">
@@ -56,12 +55,8 @@ export function HomeExperience() {
                 {/* Timeline vertical layout */}
                 <div className="relative pl-8 border-l border-white/20 dark:border-white/5 ml-4 space-y-8">
                     {featuredExperience.map((entry, idx) => (
-                        <motion.div
+                        <div
                             key={idx}
-                            initial={{ opacity: 1, x: 0 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true, margin: "-50px" }}
-                            transition={{ duration: 0.4, delay: idx * 0.1 }}
                             className="relative"
                         >
                             {/* Node point marker */}
@@ -99,7 +94,7 @@ export function HomeExperience() {
                                     </div>
                                 )}
                             </GlassPanel>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
 

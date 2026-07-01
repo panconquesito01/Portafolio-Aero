@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Loader2, CheckCircle2, AlertCircle, Send } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -12,13 +12,22 @@ export function ContactForm() {
         message: "",
     });
     const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        };
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (status === "submitting") return;
+
         setStatus("submitting");
 
         // Simulación de envío premium con delay de 2 segundos
-        setTimeout(() => {
+        timeoutRef.current = setTimeout(() => {
             try {
                 setStatus("success");
                 setFormData({ name: "", email: "", message: "" });
@@ -54,6 +63,7 @@ export function ContactForm() {
                         <Button 
                             onClick={() => setStatus("idle")} 
                             variant="outline" 
+                            type="button"
                             className="mt-8 hover:bg-muted/50"
                         >
                             Enviar otro mensaje

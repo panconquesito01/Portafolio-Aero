@@ -225,7 +225,7 @@ export function HomePersonal() {
     const ActiveIcon = catalogIcons[currentCatalog.id];
 
     return (
-        <section id="personal" className="relative py-12 overflow-visible">
+        <section id="personal" className="scroll-section relative py-12 overflow-visible">
             <Container>
                 <div className="mb-8 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
                     <div>
@@ -302,16 +302,12 @@ export function HomePersonal() {
                                 : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
                         )}
                     >
-                        {currentCatalog.items.map((item, index) => (
-                            <motion.button
+                        {currentCatalog.items.map((item) => (
+                            <button
                                 type="button"
                                 key={item.id}
                                 onClick={() => setSelectedItem(item)}
-                                initial={{ opacity: 1, y: 0 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.28, delay: index * 0.025 }}
-                                whileHover={{ y: -6 }}
-                                className="group text-left"
+                                className="group rounded-2xl text-left transition-transform duration-300 hover:-translate-y-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
                             >
                                 <GlassPanel className="flex h-full flex-col overflow-hidden rounded-2xl p-2.5 transition-all duration-300 hover:shadow-glass-lg" intensity="medium">
                                     <div
@@ -324,8 +320,8 @@ export function HomePersonal() {
                                             src={item.image}
                                             alt={item.title}
                                             fill
-                                            priority={currentCatalog.id === "music" && index < 6}
-                                            loading={currentCatalog.id === "music" && index < 6 ? undefined : "lazy"}
+                                            loading="lazy"
+                                            decoding="async"
                                             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
                                             className="object-cover transition-transform duration-500 group-hover:scale-105"
                                         />
@@ -349,7 +345,7 @@ export function HomePersonal() {
                                         </span>
                                     </div>
                                 </GlassPanel>
-                            </motion.button>
+                            </button>
                         ))}
                     </motion.div>
                 </AnimatePresence>

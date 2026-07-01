@@ -22,14 +22,15 @@ export function Navbar() {
     const [activeItem, setActiveItem] = React.useState("Inicio");
 
     React.useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 20);
-        window.addEventListener("scroll", handleScroll, { passive: true });
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+        let animationFrame = 0;
 
-    // Scroll-Spy to dynamically highlight active homepage section
-    React.useEffect(() => {
-        const handleScrollSpy = () => {
+        const updateNavigationState = () => {
+            animationFrame = 0;
+            setScrolled((current) => {
+                const next = window.scrollY > 20;
+                return current === next ? current : next;
+            });
+
             if (typeof window !== "undefined" && window.location.pathname === "/") {
                 const sections = ["inicio", "experiencia", "tecnologias", "proyectos", "personal", "contacto"];
                 const scrollPosition = window.scrollY + 220; // offset for navbar height
@@ -42,7 +43,7 @@ export function Navbar() {
                         if (scrollPosition >= top && scrollPosition < top + height) {
                             const navItem = navigation.find(n => n.href === `/#${section}`);
                             if (navItem) {
-                                setActiveItem(navItem.name);
+                                setActiveItem((current) => current === navItem.name ? current : navItem.name);
                             }
                             break;
                         }
@@ -51,9 +52,17 @@ export function Navbar() {
             }
         };
 
-        window.addEventListener("scroll", handleScrollSpy, { passive: true });
-        handleScrollSpy();
-        return () => window.removeEventListener("scroll", handleScrollSpy);
+        const handleScroll = () => {
+            if (animationFrame) return;
+            animationFrame = window.requestAnimationFrame(updateNavigationState);
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        updateNavigationState();
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            if (animationFrame) window.cancelAnimationFrame(animationFrame);
+        };
     }, []);
 
     // Set active link based on current path on mount (for sub-pages)
@@ -135,6 +144,7 @@ export function Navbar() {
                             <ThemeToggle />
                         </div>
                         <button
+                            type="button"
                             onClick={() => setIsOpen(!isOpen)}
                             className="glass-panel glass-intensity-medium rounded-full p-2 border border-white/40 dark:border-white/10 text-foreground/80 hover:text-foreground transition-all w-9 h-9 flex items-center justify-center"
                             aria-label="Toggle menu"
